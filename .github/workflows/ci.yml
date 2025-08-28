@@ -21,6 +21,8 @@ jobs:
       - name: Check merge conflicts
         run: |
           git fetch origin main
+          git config user.name "CI Bot"
+          git config user.email "ci-bot@example.com"
           git checkout ${{ github.head_ref }}
           git merge --no-commit --no-ff origin/main || (echo "❌ Merge conflict detected!" && exit 1)
 
