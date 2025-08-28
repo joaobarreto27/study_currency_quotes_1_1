@@ -1,0 +1,54 @@
+name: CI Workflow
+
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Baixar código
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      # 2. Verificar se há conflitos de merge
+      - name: Check merge conflicts
+        run: |
+          git fetch origin main
+          git checkout ${{ github.head_ref }}
+          git merge --no-commit --no-ff origin/main || (echo "❌ Merge conflict detected!" && exit 1)
+
+      # 3. Configurar Python
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      # 4. Instalar Poetry
+      - name: Install poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      # 5. Cache de dependências (poetry)
+      - name: Cache poetry dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/pypoetry
+            ~/.cache/pip
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
+
+      # 6. Instalar dependências
+      - name: Install dependencies with poetry
+        run: poetry install --no-interaction --no-root
+
+      # 7. Rodar linter
+      - name: Run linter (ruff)
+        run: poetry run ruff check .
