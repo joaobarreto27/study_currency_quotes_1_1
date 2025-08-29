@@ -13,6 +13,9 @@ dependencies = [
     "taskipy (>=1.14.1,<2.0.0)",
     "pre-commit (>=4.3.0,<5.0.0)",
     "black (>=25.1.0,<26.0.0)",
+    "python-dotenv (>=1.1.1,<2.0.0)",
+    "pyspark (>=4.0.0,<5.0.0)",
+    "ruff (>=0.12.11,<0.13.0)",
 ]
 
 [tool.poetry]
@@ -37,3 +40,4 @@ kill = "kill -9 $(lsof -t -i :8000)"
 docs = "mkdocs serve"
 docs-deploy = "mkdocs gh-deploy --clean"
 commit = "poetry run pre-commit run --all-files"
+check_reff = "ruff check src/utils/connect_database.py --fix"
