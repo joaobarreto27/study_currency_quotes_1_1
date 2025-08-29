@@ -1,4 +1,5 @@
 repos:
+  # 🔹 Limpeza e verificação básica do Git
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -10,31 +11,45 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ['--maxkb=3000']
+
+  # 🔹 Organizador de imports (opcional se Ruff estiver configurado para isort)
   - repo: https://github.com/PyCQA/isort
     rev: 5.13.2
     hooks:
       - id: isort
         stages: [pre-commit]
         args: ["--profile", "black", "--filter-files"]
+
+  # 🔹 Formatação de código
   - repo: https://github.com/psf/black
     rev: 24.10.0
     hooks:
       - id: black
         args: [--line-length=88]
-  - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.1
+
+  # 🔹 Linter moderno unificado
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: v0.6.5
     hooks:
-      - id: flake8
+      - id: ruff
+        args: ["--select=E,F,W,C,D,I"]  # Customize conforme seu estilo
+        additional_dependencies: []
+
+  # 🔹 Tipagem estática
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.13.0
     hooks:
       - id: mypy
         args: [--strict, --show-error-codes]
         language: system
+
+  # 🔹 Segurança
   - repo: https://github.com/PyCQA/bandit
     rev: 1.7.10
     hooks:
       - id: bandit
         args: [--recursive, --exclude=tests/, --skip=B101]
+
+# ⚡ Configurações gerais
 fail_fast: false
 default_stages: [pre-commit]

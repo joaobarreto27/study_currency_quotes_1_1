@@ -53,6 +53,6 @@ jobs:
       - name: Install dependencies with poetry
         run: poetry install --no-interaction --no-root
 
-      # 7. Rodar linter
-      - name: Run linter (ruff)
-        run: poetry run ruff check .
+      # 7. Rodar pre-commit
+      - name: Run pre-commit
+        run: poetry run pre-commit run --all-files
