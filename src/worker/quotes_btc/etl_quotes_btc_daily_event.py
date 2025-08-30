@@ -7,7 +7,9 @@ from ...infrastructure.data.currency_quotes.quotes_btc_daily_event.service impor
     QuotesBtcDailyEventService,
 )
 
-repository = QuotesBtcDailyEventCommandRepository("https://exemplo.com/api")
+repository = QuotesBtcDailyEventCommandRepository(
+    "https://api.coinbase.com/v2/prices/spot"
+)
 service = QuotesBtcDailyEventService(repository)
 
 service.run()
