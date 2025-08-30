@@ -6,6 +6,9 @@ authors = [
     {name = "joaobarreto27",email = "joao.vito1951@gmail.com"}
 ]
 readme = "README.md"
+packages = [
+    { include = "study_currency_quotes", from = "src" }
+]
 requires-python = ">=3.11, <3.12"
 dependencies = [
     "isort (>=6.0.1,<7.0.0)",
@@ -14,14 +17,15 @@ dependencies = [
     "pre-commit (>=4.3.0,<5.0.0)",
     "black (>=25.1.0,<26.0.0)",
     "python-dotenv (>=1.1.1,<2.0.0)",
-    "pyspark (>=4.0.0,<5.0.0)",
     "ruff (>=0.12.11,<0.13.0)",
     "requests (>=2.32.5,<3.0.0)",
     "types-requests (>=2.32.4.20250809,<3.0.0.0)",
+    "pyspark (==3.4.4)",
+    "pydantic (>=2.11.7,<3.0.0)",
 ]
 
 [tool.poetry]
-packages = [{include = "1"}]
+package-mode = false
 
 
 [tool.poetry.group.dev.dependencies]
@@ -42,4 +46,5 @@ kill = "kill -9 $(lsof -t -i :8000)"
 docs = "mkdocs serve"
 docs-deploy = "mkdocs gh-deploy --clean"
 commit = "poetry run pre-commit run --all-files"
-check_ruff = "ruff check src/utils/connect_api.py --fix"
+check_ruff = "ruff check src/infrastructure/data/currency_quotes/quotes_btc_daily_event/service/quotes_btc_daily_event.py --fix"
+ruff_format = "ruff format src/infrastructure/data/currency_quotes/quotes_btc_daily_event/service/quotes_btc_daily_event.py"
