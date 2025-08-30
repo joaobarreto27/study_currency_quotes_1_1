@@ -8,14 +8,14 @@ from typing import Any
 from pydantic import ValidationError
 
 from ....utils import SparkSessionManager
-from ..command import QuotesBtcDailyEventCommandRepository
+from ..query import QuotesBtcDailyEventQueryRepository
 from ..validator import QuotesBitcoinEventValidatorSchema
 
 
 class QuotesBtcDailyEventService:
     """Serviço que executa as operações de coleta e transformação de dados de BTC."""
 
-    def __init__(self, repository: QuotesBtcDailyEventCommandRepository) -> None:
+    def __init__(self, repository: QuotesBtcDailyEventQueryRepository) -> None:
         """Inicializa o serviço com um repositório e sessão Spark."""
         self.repository = repository
         self.session = SparkSessionManager()

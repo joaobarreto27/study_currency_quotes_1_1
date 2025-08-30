@@ -5,7 +5,7 @@ from typing import Any
 from .....data import ConnectAPI, SparkSessionManager
 
 
-class QuotesBtcDailyEventCommandRepository:
+class QuotesBtcDailyEventQueryRepository:
     """Repositório para manipulação de eventos diários de cotações de BTC."""
 
     def __init__(self, url: str) -> None:

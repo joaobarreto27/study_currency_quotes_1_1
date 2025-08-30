@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Dict, Optional, Tuple
 
 from dotenv import dotenv_values
-from pyspark.sql import DataFrame, SparkSession
+from pyspark.sql import SparkSession
 
 
 class ConnectionDatabaseSpark:
@@ -70,7 +70,7 @@ class ConnectionDatabaseSpark:
                     self.initialize_jdbc()
 
                 # Cria SparkSession temporária só para testar a conexão
-                spark = SparkSession.builder.getOrCreate()
+                spark: SparkSession = SparkSession.builder.getOrCreate()
                 assert self.jdbc_url is not None and self.properties is not None
                 df = spark.read.jdbc(
                     url=self.jdbc_url,
@@ -87,22 +87,3 @@ class ConnectionDatabaseSpark:
                     raise
                 time.sleep(wait_seconds)
         assert False, "Should not reach here"
-
-    def write_dataframe(
-        self, spark_df: DataFrame, table_name: str, mode: str = "append"
-    ) -> None:
-        """Salva DataFrame PySpark no banco PostgreSQL via JDBC."""
-        assert self.jdbc_url is not None and self.properties is not None
-
-        spark_df.write.jdbc(
-            url=self.jdbc_url,
-            table=table_name,
-            mode=mode,
-            properties=self.properties,
-        )
-        self.initialize_jdbc()
-
-        spark_df.write.jdbc(
-            url=self.jdbc_url, table=table_name, mode=mode, properties=self.properties
-        )
-        print(f"DataFrame written to table {table_name} successfully.")
