@@ -1,5 +1,5 @@
 [project]
-name = "1-1-study-currency-quotes"
+name = "study-currency-quotes"
 version = "0.1.0"
 description = ""
 authors = [
@@ -27,6 +27,11 @@ dependencies = [
 [tool.poetry]
 package-mode = false
 
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint]
+ignore = ["D203", "D213"]
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.12.11"

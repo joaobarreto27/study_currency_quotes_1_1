@@ -6,6 +6,7 @@ dos eventos de cotação de BTC.
 from typing import Any
 
 from pydantic import ValidationError
+from pyspark.sql import DataFrame
 
 from ....utils import SparkSessionManager
 from ..query import QuotesBtcDailyEventQueryRepository
@@ -21,7 +22,7 @@ class QuotesBtcDailyEventService:
         self.session = SparkSessionManager()
         self.data: dict[str, Any] = {}
 
-    def run(self) -> None:
+    def run(self) -> DataFrame:
         """Executa a coleta de dados a partir do repositório."""
         self.data = self.repository.fetch()
 
@@ -30,7 +31,7 @@ class QuotesBtcDailyEventService:
         except ValidationError as e:
             raise ValueError(f"Data validation error: {e}")
 
-        df = self.session.createDataFrame([self.data])
+        df: DataFrame = self.session.createDataFrame([self.data])
         df.show(truncate=False)
 
-        self.session.stop()
+        return df

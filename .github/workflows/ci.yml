@@ -7,7 +7,7 @@ on:
       - develop
 
 jobs:
-  test:
+  pipeline:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,7 @@ jobs:
         run: |
           git fetch origin main
           git checkout ${{ github.head_ref }}
-          git merge --no-commit --no-ff origin/main || (echo "❌ Merge conflict detected!" && exit 1)
+          git merge --no-commit --no-ff origin/main || (echo "Merge conflict detected!" && exit 1)
 
       # 4️⃣ Configurar Python
       - name: Set up Python 3.11
