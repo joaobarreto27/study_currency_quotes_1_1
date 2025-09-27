@@ -42,17 +42,17 @@ class SparkSessionManager:
         self._spark = builder.getOrCreate()
 
     def __getattr__(self, item: str) -> Any:
-        """Delegate attribute access to the SparkSession.
+        """Delegue acesso de atributo ao SparkSession.
 
         Permite chamar qualquer método ou acessar qualquer atributo da
         SparkSession diretamente na instância do manager.
 
-        Example:
+        Exemplo:
             session.createDataFrame(...)
 
         """
         if self._spark is None:
-            raise AttributeError("SparkSession ainda não inicializada")
+            raise AttributeError("SparkSession not yet initialized.")
         return getattr(self._spark, item)
 
     def stop(self) -> None:

@@ -42,7 +42,7 @@ class ConnectAPI:
         methods_used = sum(x is not None for x in [auth, token, params_query])
         if methods_used > 1:
             raise ValueError(
-                "Escolha apenas um método de autenticação: auth, token ou params_query."
+                "Choose only one authentication method: auth, token, or params_query."
             )
 
         request_auth = auth
