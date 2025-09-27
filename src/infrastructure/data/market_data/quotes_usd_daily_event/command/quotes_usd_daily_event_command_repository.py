@@ -2,21 +2,18 @@
 
 from pyspark.sql import DataFrame, SparkSession
 
-from infrastructure.data.currency_quotes.quotes_btc_daily_event.service import (
-    QuotesBtcDailyEventService,
+from infrastructure.data.currency_quotes.quotes_usd_daily_event.service import (
+    QuotesUsdDailyEventService,
 )
-from infrastructure.data.utils import (
-    ConnectionDatabaseSpark,
-    DatabaseWriter,
-)
+from infrastructure.data.utils import ConnectionDatabaseSpark, DatabaseWriter
 
 
-class QuotesBtcDailyEventCommandRepository:
+class QuotesUsdDailyEventCommandRepository:
     """Classe para realizar o comando de consultar a API e salvar no banco de dados."""
 
     def __init__(
         self,
-        service: QuotesBtcDailyEventService,
+        service: QuotesUsdDailyEventService,
         spark: SparkSession,
         connection: ConnectionDatabaseSpark,
         table_name: str,
@@ -28,11 +25,11 @@ class QuotesBtcDailyEventCommandRepository:
         self.table_name = table_name
 
     def command(self) -> DataFrame:
-        """Executa o serviço e retorna DataFrame validado."""
+        """Executa o serviço e retorna um DataFrame validado."""
         df = self.service.run()
         return df
 
     def save(self, df: DataFrame, mode: str = "append") -> None:
-        """Salva o DataFrame no banco."""
+        """Salva o DataFrame no banco de dados."""
         writer = DatabaseWriter(self.spark, self.connection)
         writer.save_data(df, self.table_name, mode=mode)

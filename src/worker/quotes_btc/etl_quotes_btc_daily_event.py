@@ -4,16 +4,16 @@ from datetime import datetime
 
 from pyspark.sql.functions import lit
 
-from ...infrastructure.data.currency_quotes.quotes_btc_daily_event.query import (
+from infrastructure.data.currency_quotes.quotes_btc_daily_event.query import (
     QuotesBtcDailyEventQueryRepository,
 )
-from ...infrastructure.data.currency_quotes.quotes_btc_daily_event.service import (
+from infrastructure.data.currency_quotes.quotes_btc_daily_event.service import (
     QuotesBtcDailyEventService,
 )
-from ...infrastructure.data.market_data.quotes_btc_daily_event.command import (
+from infrastructure.data.market_data.quotes_btc_daily_event.command import (
     QuotesBtcDailyEventCommandRepository,
 )
-from ...infrastructure.data.utils import ConnectionDatabaseSpark, SparkSessionManager
+from infrastructure.data.utils import ConnectionDatabaseSpark, SparkSessionManager
 
 
 def main() -> None:
