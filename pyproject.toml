@@ -1,12 +1,15 @@
 [project]
-name = "study_currency_quotes_1_1"
+name = "infrastructure"
 version = "0.1.0"
 description = ""
 authors = [
     {name = "joaobarreto27",email = "joao.vito1951@gmail.com"}
 ]
 readme = "README.md"
-packages = [{ include = "infrastructure", from = "src" }]
+packages = [
+    { include = "worker", from = "src" },
+    { include = "infrastructure", from = "src" }
+]
 requires-python = ">=3.11, <3.12"
 dependencies = [
     "isort (>=6.0.1,<7.0.0)",
@@ -53,6 +56,3 @@ ruff_format = "ruff format src/infrastructure/data/currency_quotes/quotes_btc_da
 files = ["src"]
 mypy_path = ["src"]
 explicit_package_bases = true
-
-[tool.poetry]
-package-mode = false

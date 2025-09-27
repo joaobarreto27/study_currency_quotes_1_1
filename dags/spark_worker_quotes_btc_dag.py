@@ -7,11 +7,6 @@ from airflow import DAG  # type:ignore
 from airflow.operators.bash import BashOperator  # type:ignore
 
 BASE_DIR = os.path.dirname(__file__)
-WORKER_PATH = os.path.join(
-    BASE_DIR,
-    """../etl/study_currency_quotes/src/worker/quotes_btc/
-    etl_quotes_btc_daily_event.py""",
-)
 
 with DAG(
     dag_id="spark_worker_quotes_btc_dag",
@@ -23,7 +18,8 @@ with DAG(
 
     run_worker = BashOperator(
         task_id="run_worker",
-        bash_command="""
-        python -m
-        dags.etl.study_currency_quotes.src.worker.quotes_btc.etl_quotes_btc_daily_event""",
+        bash_command=(
+            f"export PYTHONPATH={BASE_DIR}/../src && "
+            "python -m worker.quotes_btc.etl_quotes_btc_daily_event"
+        ),
     )
