@@ -1,14 +1,12 @@
 [project]
-name = "study-currency-quotes"
+name = "study_currency_quotes_1_1"
 version = "0.1.0"
 description = ""
 authors = [
     {name = "joaobarreto27",email = "joao.vito1951@gmail.com"}
 ]
 readme = "README.md"
-packages = [
-    { include = "study_currency_quotes", from = "src" }
-]
+packages = [{ include = "infrastructure", from = "src" }]
 requires-python = ">=3.11, <3.12"
 dependencies = [
     "isort (>=6.0.1,<7.0.0)",
@@ -23,9 +21,6 @@ dependencies = [
     "pyspark (==3.4.4)",
     "pydantic (>=2.11.7,<3.0.0)",
 ]
-
-[tool.poetry]
-package-mode = false
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -53,3 +48,11 @@ docs-deploy = "mkdocs gh-deploy --clean"
 commit = "poetry run pre-commit run --all-files"
 check_ruff = "ruff check src/infrastructure/data/currency_quotes/quotes_btc_daily_event/service/quotes_btc_daily_event.py --fix"
 ruff_format = "ruff format src/infrastructure/data/currency_quotes/quotes_btc_daily_event/service/quotes_btc_daily_event.py"
+
+[tool.mypy]
+files = ["src"]
+mypy_path = ["src"]
+explicit_package_bases = true
+
+[tool.poetry]
+package-mode = false

@@ -1,0 +1,16 @@
+USD-BRL
+CAD-BRL
+EUR-BRL
+GBP-BRL
+ARS-BRL
+BTC-BRL
+JPY-BRL
+CHF-BRL
+AUD-BRL
+CNY-BRL
+ETH-BRL
+XRP-BRL
+
+URL = https://economia.awesomeapi.com.br/last/
+Example = https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL?token=baa309fc2062d04f5346345cc3c13bb3da8202631b73b03d79386593439d0cac
+É necessário usar com o token

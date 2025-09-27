@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug ETL Quotes USD",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/worker/quotes_usd/etl_quotes_usd_daily_event.py",
+            "cwd": "${workspaceFolder}",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        }
+    ]
+}
