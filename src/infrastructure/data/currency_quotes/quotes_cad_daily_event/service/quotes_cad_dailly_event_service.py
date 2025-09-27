@@ -1,6 +1,6 @@
-"""Serviço responsável por orquestar a coleta e processamento.
+"""Serviço responsável por orquestrar a coleta e processamento.
 
-dos eventos de cotação de USD.
+dos eventos diários de cotação de CAD.
 """
 
 from typing import Any
@@ -9,14 +9,14 @@ from pydantic import ValidationError
 from pyspark.sql import DataFrame
 
 from ....utils import SparkSessionManager
-from ..query import QuotesUsdDailyEventQueryRepository
-from ..validator import QuotesUsdDailyEventValidatorSchema
+from ..query import QuotesCadDailyEventQueryRepository
+from ..validator import QuotesCadDailyEventValidatorSchema
 
 
-class QuotesUsdDailyEventService:
-    """Serviço que executa as operações de coleta e transformação de dados de USD."""
+class QuotesCadDailyEventService:
+    """Serviço que executa as operações de coleta e transformação de dados de CAD."""
 
-    def __init__(self, repository: QuotesUsdDailyEventQueryRepository) -> None:
+    def __init__(self, repository: QuotesCadDailyEventQueryRepository) -> None:
         """Inicializa o serviço com um repositório e sessão Spark."""
         self.repository = repository
         self.session = SparkSessionManager()
@@ -27,11 +27,9 @@ class QuotesUsdDailyEventService:
         self.data = self.repository.fetch()
 
         try:
-            QuotesUsdDailyEventValidatorSchema(**self.data)
+            QuotesCadDailyEventValidatorSchema(**self.data)
         except ValidationError as e:
             raise ValueError(f"Data validation error: {e}")
 
         df: DataFrame = self.session.createDataFrame([self.data])
-        df.show(truncate=False)
-
         return df

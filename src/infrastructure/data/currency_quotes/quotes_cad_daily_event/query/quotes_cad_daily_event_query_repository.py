@@ -1,12 +1,12 @@
-"""Módulo para buscar dados diários de cotações do USD."""
+"""Módulo para buscar dados diários de cotação do Dólar Canadense."""
 
 from typing import Any
 
 from .... import ConnectAPI, SparkSessionManager
 
 
-class QuotesUsdDailyEventQueryRepository:
-    """Repositório para consultas diárias a cotações de USD para BR."""
+class QuotesCadDailyEventQueryRepository:
+    """Reporitório para consultas diárias e cotação de CAD para BR."""
 
     def __init__(self, url: str) -> None:
         """Inicializa a consulta a API com a URL."""
