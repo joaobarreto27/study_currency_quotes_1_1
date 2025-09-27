@@ -1,1 +1,1 @@
-"""Comando de extração de dados de Bitcoin diário."""
+"""Comando de extração de dados de USD diário."""
