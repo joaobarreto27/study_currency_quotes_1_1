@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 
 from airflow import DAG  # type:ignore
-from airflow.operator.bash import BashOperator  # type:ignore
+from airflow.operators.bash import BashOperator  # type:ignore
 
 BASE_DIR = os.path.dirname(__file__)
 
