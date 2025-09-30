@@ -1,4 +1,4 @@
-"""Módulo de execução de dags no Airflow da extração da cotação de USD."""
+"""Módulo de execução de dags no Airflow para extração da cotação de USD."""
 
 import os
 from datetime import datetime
@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(__file__)
 with DAG(
     dag_id="spark_worker_quotes_usd_dag",
     start_date=datetime(2025, 8, 30),
-    schedule="*/3 * * * *",
+    schedule="*/6 * * * *",
     catchup=False,
     tags=["quotes_usd"],
 ) as dag:
