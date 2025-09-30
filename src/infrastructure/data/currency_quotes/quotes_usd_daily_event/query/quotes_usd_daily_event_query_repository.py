@@ -1,4 +1,4 @@
-"""Módulo para buscar dados diários de cotações do USD."""
+"""Módulo para buscar dados diários de cotações de USD."""
 
 from typing import Any
 

@@ -41,7 +41,7 @@ def main() -> None:
         service=service,
         spark=spark,  # type:ignore
         connection=connection,
-        table_name="quotes_btc_daily",
+        table_name="quotes_btc_daily_event",
     )
 
     # 6. Executa pipeline
