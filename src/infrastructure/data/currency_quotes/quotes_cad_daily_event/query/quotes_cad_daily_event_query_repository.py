@@ -1,4 +1,4 @@
-"""Módulo para buscar dados diários de cotação do Dólar Canadense."""
+"""Módulo para buscar dados diários de cotações de CAD."""
 
 from typing import Any
 

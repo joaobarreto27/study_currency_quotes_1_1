@@ -1,4 +1,4 @@
-"""Módulo para manipulação de dados de cotação de BTC diário."""
+"""Módulo para buscar dados diários de cotações de BTC diário."""
 
 from typing import Any
 
