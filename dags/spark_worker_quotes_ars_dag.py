@@ -18,7 +18,7 @@ with DAG(
 
     run_worker = BashOperator(
         task_id="run_worker",
-        bash_operator=(
+        bash_command=(
             f"export PYTHONPATH={BASE_DIR}/../src &&"
             "python -m worker.quotes_ars.etl_quotes_ars_daily_event"
         ),
