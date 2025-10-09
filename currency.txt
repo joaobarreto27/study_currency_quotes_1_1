@@ -7,7 +7,7 @@ ARS-BRL - Ok
 JPY-BRL - Ok
 CHF-BRL - Ok
 AUD-BRL - Ok
-CNY-BRL
+CNY-BRL - Ok
 ETH-BRL
 XRP-BRL
 
