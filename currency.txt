@@ -9,7 +9,7 @@ CHF-BRL - Ok
 AUD-BRL - Ok
 CNY-BRL - Ok
 ETH-BRL - Ok
-XRP-BRL
+XRP-BRL - Ok
 
 URL = https://economia.awesomeapi.com.br/last/
 Example = https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL?token=baa309fc2062d04f5346345cc3c13bb3da8202631b73b03d79386593439d0cac
