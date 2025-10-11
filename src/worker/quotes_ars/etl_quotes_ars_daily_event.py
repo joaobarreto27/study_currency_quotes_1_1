@@ -21,7 +21,7 @@ def main() -> None:
     spark = SparkSessionManager()
 
     connection = ConnectionDatabaseSpark(
-        sgbd_name="postgresql", environment="dev", db_name="1.1_study_currency_quotes"
+        sgbd_name="postgresql", environment="prd", db_name="1.1_study_currency_quotes"
     )
 
     query_repository = QuotesArsDailyEventQueryRepository(

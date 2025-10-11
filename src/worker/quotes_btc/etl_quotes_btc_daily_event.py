@@ -24,7 +24,7 @@ def main() -> None:
     # 2. Conexão com banco
     connection = ConnectionDatabaseSpark(
         sgbd_name="postgresql",
-        environment="dev",
+        environment="prd",
         db_name="1.1_study_currency_quotes",
     )
 
