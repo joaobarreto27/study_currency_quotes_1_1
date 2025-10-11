@@ -11,7 +11,7 @@ BASE_DIR = os.path.dirname(__file__)
 with DAG(
     dag_id="spark_worker_quotes_cny_dag",
     start_date=datetime(2025, 9, 30),
-    schedule="*/10 * * * *",
+    schedule="28 21 * * 1-5",
     catchup=False,
     tags=["quotes_cny"],
 ) as dag:
