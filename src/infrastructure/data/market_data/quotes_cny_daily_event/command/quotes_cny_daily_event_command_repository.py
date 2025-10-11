@@ -29,7 +29,7 @@ class QuotesCnyDailyEventCommandRepository:
         df = self.service.run()
         return df
 
-    def save(self, df: DataFrame, mode: str = "appen") -> None:
+    def save(self, df: DataFrame, mode: str = "append") -> None:
         """Salva o DataFrame no banco de dados."""
         writer = DatabaseWriter(spark=self.spark, connect=self.connection)
         writer.save_data(df=df, table_name=self.table_name, mode=mode)
