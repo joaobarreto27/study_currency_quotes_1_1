@@ -8,7 +8,7 @@ JPY-BRL - Ok
 CHF-BRL - Ok
 AUD-BRL - Ok
 CNY-BRL - Ok
-ETH-BRL
+ETH-BRL - Ok
 XRP-BRL
 
 URL = https://economia.awesomeapi.com.br/last/
