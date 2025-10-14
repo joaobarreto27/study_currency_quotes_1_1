@@ -13,7 +13,11 @@ from infrastructure.data.currency_quotes.quotes_chf_daily_event.service import (
 from infrastructure.data.market_data.quotes_chf_daily_event.command import (
     QuotesChfDailyEventCommandRepository,
 )
-from infrastructure.data.utils import ConnectionDatabaseSpark, SparkSessionManager
+from infrastructure.data.utils import (
+    ConnectionDatabaseSpark,
+    EnvManager,
+    SparkSessionManager,
+)
 
 
 def main() -> None:
@@ -30,8 +34,11 @@ def main() -> None:
         ),
     )
 
+    env_manager = EnvManager()
+    api_token = env_manager.get_token()
+
     query_repository = QuotesChfDailyEventQueryRepository(
-        "https://economia.awesomeapi.com.br/json/last/ARS-BRL?token=baa309fc2062d04f5346345cc3c13bb3da8202631b73b03d79386593439d0cac"
+        f"https://economia.awesomeapi.com.br/json/last/CHF-BRL?token={api_token}"
     )
 
     service = QuotesChfDailyEventService(query_repository)
