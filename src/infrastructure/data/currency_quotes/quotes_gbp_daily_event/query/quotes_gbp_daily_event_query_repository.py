@@ -21,5 +21,5 @@ class QuotesGbpDailyEventQueryRepository:
         if self.data_json:
             self.data = next(iter(self.data_json.values()))
         else:
-            raise ValueError("Empty dictionary try again!")
+            raise ValueError("Dicionário vazio, tente novamente!")
         return self.data

@@ -1,12 +1,12 @@
-"""Módulo para buscar dados diários de cotação do XPR."""
+"""Módulo para buscar dados diários de cotação do XRP."""
 
 from typing import Any
 
 from ....utils import ConnectAPI, SparkSessionManager
 
 
-class QuotesXprDailyEventQueryRepository:
-    """Repositório para consultas diárias a cotações de XPR para BR."""
+class QuotesXrpDailyEventQueryRepository:
+    """Repositório para consultas diárias a cotações de XRP para BR."""
 
     def __init__(self, url: str) -> None:
         """Inicializa a consulta a API com a URL."""
@@ -22,5 +22,5 @@ class QuotesXprDailyEventQueryRepository:
         if self.data_json:
             self.data = next(iter(self.data_json.values()))
         else:
-            raise ValueError("Empty dictionary try again")
+            raise ValueError("Dicionário vazio, tente novamente")
         return self.data
