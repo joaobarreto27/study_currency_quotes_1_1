@@ -57,5 +57,13 @@ ruff_format = "ruff format src/infrastructure/data/currency_quotes/quotes_btc_da
 
 [tool.mypy]
 files = ["src"]
-mypy_path = ["src"]
+mypy_path = ["dags/etl/src"]
 explicit_package_bases = true
+
+[tool.ruff]
+select = ["E", "F", "B", "I"]
+fix = true
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+known-first-party = ["infrastructure", "worker"]
