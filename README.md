@@ -18,8 +18,8 @@
 
 1️⃣ **Clone o repositório:**
 ```bash
-   git clone https://github.com/SEU_USUARIO/currency-quotes-automation.git
-   cd currency-quotes-automation
+   git clone https://github.com/joaobarreto27/study_currency_quotes_1_1
+   cd study_currency_quotes_1_1
    ```
 
 2️⃣ **Crie o arquivo `.env` na raiz do projeto com as seguintes variáveis:**
