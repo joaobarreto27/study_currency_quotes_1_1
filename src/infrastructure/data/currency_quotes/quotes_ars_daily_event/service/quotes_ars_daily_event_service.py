@@ -29,7 +29,7 @@ class QuotesArsDailyEventService:
         try:
             QuotesArsDailyEventValidatorSchema(**self.data)
         except ValidationError as e:
-            raise ValueError(f"Data validation error: {e}")
+            raise ValueError(f"Erro na validação dos dados: {e}")
 
         df: DataFrame = self.session.createDataFrame([self.data])
         return df

@@ -1,12 +1,12 @@
-"""Validação para o schema de eventos de cotação de XPR."""
+"""Validação para o schema de eventos de cotação de XRP."""
 
 from datetime import datetime
 
 from pydantic import BaseModel, PositiveFloat
 
 
-class QuotesXprDailyEventValidatorSchema(BaseModel):
-    """Schema de validação para os eventos de cotação de XPR."""
+class QuotesXrpDailyEventValidatorSchema(BaseModel):
+    """Schema de validação para os eventos de cotação de XRP."""
 
     code: str
     codein: str

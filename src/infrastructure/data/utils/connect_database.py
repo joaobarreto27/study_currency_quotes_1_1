@@ -1,5 +1,6 @@
 """Módulo para gerenciar conexões JDBC com PySpark para PostgreSQL."""
 
+import sqlite3
 import time
 from pathlib import Path
 from typing import Dict, Optional, Tuple
@@ -28,8 +29,9 @@ class ConnectionDatabaseSpark:
         self.path: Optional[Path] = None
         self.jdbc_url: Optional[str] = None
         self.properties: Optional[Dict[str, str]] = None
+        self.sqlite_conn: Optional[sqlite3.Connection] = None
 
-    def initialize_jdbc(self) -> Tuple[str, Dict[str, str]]:
+    def initialize_jdbc(self) -> Tuple[Optional[str], Optional[Dict[str, str]]]:
         """Cria a URL JDBC e propriedades para conexão com PySpark."""
         self.current_dir = Path(__file__).resolve().parent
         self.path = self.current_dir.parent.joinpath(
@@ -57,16 +59,30 @@ class ConnectionDatabaseSpark:
                 "driver": "org.postgresql.Driver",
             }
             return self.jdbc_url, self.properties
+
+        elif self.sgbd_name == "sqlite":
+            db_folder = self.path
+            db_folder.mkdir(parents=True, exist_ok=True)
+            db_path = db_folder / f"{self.db_name}.db"
+            self.sqlite_conn = sqlite3.connect(db_path)
+            print(f"Conectado ao SQLite local: {db_path}")
+            return None, None
+
         else:
-            raise ValueError(f"SGBD '{self.sgbd_name}' not supported.")
+            raise ValueError(f"SGBD '{self.sgbd_name}' não suportado.")
 
     def connect_with_retry(
         self, max_retries: int = 5, wait_seconds: int = 5
-    ) -> Tuple[str, Dict[str, str]]:
+    ) -> Tuple[Optional[str], Optional[Dict[str, str]]]:
         """Testa a conexão JDBC com retry."""
         for attempt in range(1, max_retries + 1):
             try:
-                if self.jdbc_url is None or self.properties is None:
+                if self.sgbd_name == "sqlite":
+                    if self.sqlite_conn is None:
+                        self.initialize_jdbc()
+                    return None, None
+
+                elif self.jdbc_url is None or self.properties is None:
                     self.initialize_jdbc()
 
                 # Cria SparkSession temporária só para testar a conexão
@@ -78,12 +94,12 @@ class ConnectionDatabaseSpark:
                     properties=self.properties,
                 )
                 df.collect()  # força execução para testar conexão
-                print("Connection successful!")
+                print("Conectado com sucesso!")
                 return self.jdbc_url, self.properties
 
             except Exception as e:
-                print(f"[Attempt {attempt}] Failed to connect: {e}")
+                print(f"[Tentativa {attempt}] Falha de conexão: {e}")
                 if attempt == max_retries:
                     raise
                 time.sleep(wait_seconds)
-        assert False, "Should not reach here"
+        assert False, "Não deveria chegar aqui"

@@ -23,6 +23,7 @@ dependencies = [
     "types-requests (>=2.32.4.20250809,<3.0.0.0)",
     "pyspark (==3.4.4)",
     "pydantic (>=2.11.7,<3.0.0)",
+    "pandas (>=2.3.3,<3.0.0)",
 ]
 
 [tool.ruff.lint.pydocstyle]

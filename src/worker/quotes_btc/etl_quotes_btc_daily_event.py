@@ -21,11 +21,14 @@ def main() -> None:
     # 1. Spark Session
     spark = SparkSessionManager()
 
-    # 2. Conexão com banco
+    USE_SQLITE = True
+
     connection = ConnectionDatabaseSpark(
-        sgbd_name="postgresql",
-        environment="prd",
-        db_name="1.1_study_currency_quotes",
+        sgbd_name="sqlite" if USE_SQLITE else "postgresql",
+        environment="prd" if USE_SQLITE else "prd",
+        db_name=(
+            "1.1_study_currency_quotes" if USE_SQLITE else "1.1_study_currency_quotes"
+        ),
     )
 
     # 3. Repository de leitura (extrai dados da API)

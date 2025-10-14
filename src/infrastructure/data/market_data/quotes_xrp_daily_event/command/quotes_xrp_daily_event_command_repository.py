@@ -2,18 +2,18 @@
 
 from pyspark.sql import DataFrame, SparkSession
 
-from infrastructure.data.currency_quotes.quotes_xpr_daily_event.service import (
-    QuotesXprDailyEventService,
+from infrastructure.data.currency_quotes.quotes_xrp_daily_event.service import (
+    QuotesXrpDailyEventService,
 )
 from infrastructure.data.utils import ConnectionDatabaseSpark, DatabaseWriter
 
 
-class QuotesXprDailyEventCommandRepository:
+class QuotesXrpDailyEventCommandRepository:
     """Classe para realizar o comando de executar a API e salvar no banco de dados."""
 
     def __init__(
         self,
-        service: QuotesXprDailyEventService,
+        service: QuotesXrpDailyEventService,
         spark: SparkSession,
         connection: ConnectionDatabaseSpark,
         table_name: str,

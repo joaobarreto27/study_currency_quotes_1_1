@@ -21,5 +21,5 @@ class QuotesAudDailyEventQueryRepository:
         if self.data_json:
             self.data = next(iter(self.data_json.values()))
         else:
-            ValueError("Empty dictionary try again!")
+            ValueError("Dicionário vazio, tente novamente!")
         return self.data
