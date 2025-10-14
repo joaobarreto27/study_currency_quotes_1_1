@@ -28,4 +28,4 @@ COPY ./dags/etl/requirements.txt /opt/airflow/dags/etl/study_currency_quotes/req
 
 RUN pip install -r /opt/airflow/dags/etl/study_currency_quotes/requirements.txt
 
-COPY ./etl /opt/airflow/etl
+COPY ./dags/etl /opt/airflow/etl
