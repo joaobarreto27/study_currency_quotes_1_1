@@ -12,13 +12,24 @@ class EnvManager:
     def __init__(self, env_file: Optional[str] = None) -> None:
         """Inicializa o manager e carrega o arquivo .env.
 
-        :param env_file: Caminho para arquivo .env. Se None, procura na raiz do projeto.
+        :param env_file: Caminho para arquivo .env.
+        Se None, procura automaticamente subindo diretórios.
         """
-        if env_file is None:
-            # Procura automaticamente o .env na raiz do projeto
-            self.env_file = Path(".env").resolve()
-        else:
+        if env_file is not None:
+            # Se o usuário informou um caminho manual
             self.env_file = Path(env_file).resolve()
+        else:
+            # 🧭 Procura o arquivo .env subindo diretórios até encontrar
+            current_path = Path(__file__).resolve()
+            for parent in current_path.parents:
+                candidate = parent / ".env"
+                if candidate.is_file():
+                    self.env_file = candidate
+                    break
+            else:
+                raise FileNotFoundError(
+                    "Arquivo .env não encontrado em nenhum diretório acima."
+                )
 
         if not self.env_file.is_file():
             raise FileNotFoundError(f"Arquivo '{self.env_file}' não encontrado.")
@@ -27,11 +38,7 @@ class EnvManager:
         self.env_vars = dotenv_values(dotenv_path=self.env_file)
 
     def get_token(self, token_name: Optional[str] = None) -> Optional[str]:
-        """Retorna o token da API a partir do .env.
-
-        :param token_name: Nome da variável no .env que contém o token
-        :return: token como string ou None se não encontrado
-        """
+        """Retorna o token da API a partir do .env."""
         token_name = token_name or "API_TOKEN"
         token = self.env_vars.get(token_name)
         if token is None:
@@ -39,11 +46,7 @@ class EnvManager:
         return token
 
     def get_variable(self, var_name: str) -> Optional[str]:
-        """Retorna qualquer variável do .env.
-
-        :param var_name: Nome da variável
-        :return: valor da variável ou None se não encontrada
-        """
+        """Retorna qualquer variável do .env."""
         value = self.env_vars.get(var_name)
         if value is None:
             print(f"Atenção: variável '{var_name}' não encontrada no arquivo .env")
