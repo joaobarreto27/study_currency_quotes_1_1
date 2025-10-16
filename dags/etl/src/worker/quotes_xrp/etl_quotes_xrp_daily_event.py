@@ -23,11 +23,11 @@ from infrastructure.data.utils import (
 def main() -> None:
     """Executa o ETL."""
     spark = SparkSessionManager()
-    USE_SQLITE = True
+    USE_SQLITE = False
 
     connection = ConnectionDatabaseSpark(
         sgbd_name="sqlite" if USE_SQLITE else "postgresql",
-        environment="rpd" if USE_SQLITE else "rpd",
+        environment="prd" if USE_SQLITE else "prd",
         db_name=(
             "1.1_study_currency_quotes" if USE_SQLITE else "1.1_study_currency_quotes"
         ),
