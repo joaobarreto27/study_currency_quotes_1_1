@@ -1,4 +1,4 @@
-FROM apache/airflow:2.8.3-python3.11
+FROM apache/airflow:2.10.5-python3.12
 
 # Instala gosu, Java (necessário para PySpark) e curl
 USER root
@@ -21,11 +21,11 @@ ENV PATH=${PATH}:${SPARK_HOME}/bin:${SPARK_HOME}/sbin
 # Baixa driver JDBC do PostgreSQL diretamente para o diretório de jars do Spark
 RUN curl -L -o ${SPARK_HOME}/jars/postgresql-42.7.3.jar https://jdbc.postgresql.org/download/postgresql-42.7.3.jar
 
+COPY ./dags/etl/requirements.txt /opt/airflow/dags/etl/study_currency_quotes/requirements.txt
+
 # Switch back to airflow user
 USER airflow
 
-COPY ./dags/etl/requirements.txt /opt/airflow/dags/etl/study_currency_quotes/requirements.txt
-
-RUN pip install -r /opt/airflow/dags/etl/study_currency_quotes/requirements.txt
+RUN pip install --no-cache-dir --break-system-packages -r /opt/airflow/dags/etl/study_currency_quotes/requirements.txt
 
 COPY ./dags/etl /opt/airflow/etl
