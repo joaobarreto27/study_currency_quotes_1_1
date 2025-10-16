@@ -53,7 +53,6 @@ x-airflow-common:
     AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
     AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
-    AIRFLOW__CORE__FERNET_KEY: 'YOUR_RANDOM_32_CHAR_BASE64'
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
@@ -179,6 +178,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+
   airflow-init:
     <<: *airflow-common
     entrypoint: /bin/bash
@@ -237,16 +237,15 @@ services:
         fi
         mkdir -p /sources/logs /sources/dags /sources/plugins
         chown -R "${AIRFLOW_UID}:0" /sources/{logs,dags,plugins}
-        airflow airflow version && \
-        airflow airflow db upgrade && \
-        airflow airflow users create \
+        airflow version && \
+        airflow db upgrade && \
+        airflow users create \
           --username "${_AIRFLOW_WWW_USER_USERNAME:-airflow}" \
           --password "${_AIRFLOW_WWW_USER_PASSWORD:-airflow}" \
           --firstname Airflow \
           --lastname Admin \
           --role Admin \
           --email admin@example.com || true
-    # yamllint enable rule:line-length
     environment:
       <<: *airflow-common-env
       _AIRFLOW_DB_UPGRADE: 'true'
@@ -257,6 +256,7 @@ services:
     user: "0:0"
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}:/sources
+
   airflow-reserializer:
     <<: *airflow-common
     entrypoint: /bin/bash
