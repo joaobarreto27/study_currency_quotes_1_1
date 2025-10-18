@@ -72,13 +72,20 @@ AIRFLOW_UID=50000
 # 1️⃣ Buildar tudo (sem cache):
 docker-compose build --no-cache
 
+# 2️⃣ Subit somente o cotainer init:
+docker-compose up airflow-init
 
-# 2️⃣ Subir todo o ambiente:
+# 3️⃣ Subir todo o restante do ambiente ambiente:
 docker-compose up -d
 ```
 
 ✅ O Airflow estará disponível em:  
 👉 [http://localhost:8080](http://localhost:8080)
+
+Caso seja alterado algo no ambiente docker, basta realizar o comando abaixo:
+```bash
+docker-compose up -d
+```
 
 ---
 
