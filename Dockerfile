@@ -24,8 +24,8 @@ RUN curl -L -o ${SPARK_HOME}/jars/postgresql-42.7.3.jar https://jdbc.postgresql.
 # Switch back to airflow user
 USER airflow
 
-COPY ./dags/etl/study_currency_quotes/requirements.txt /opt/airflow/dags/etl/study_currency_quotes/requirements.txt
+COPY ./dags/etl/requirements.txt /opt/airflow/dags/etl/requirements.txt
 
-RUN pip install --no-cache-dir -r /opt/airflow/dags/etl/study_currency_quotes/requirements.txt
+RUN pip install --no-cache-dir -r /opt/airflow/dags/etl/requirements.txt
 
 COPY ./dags/etl /opt/airflow/etl

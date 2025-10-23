@@ -126,8 +126,8 @@ poetry install
 # 5️⃣ Ative o ambiente do Poetry
 poetry shell
 
-# 6️⃣ Execute o pipeline localmente
-python dags/etl/src/main.py
+# 6️⃣ Execute um pipeline de exemplo
+python dags/etl/src/worker/quotes_ars/etl_quotes_ars_daily_event.py
 ```
 
 > 💡 **Dica:** Mesmo com tudo configurado, é **altamente recomendado usar Docker** para garantir reprodutibilidade e compatibilidade com o Airflow e PySpark.
@@ -137,20 +137,22 @@ python dags/etl/src/main.py
 ## 🗂️ Estrutura do Projeto
 
 ```bash
-├── dags/  
+.
+├── dags/                                 # Contém os pipelines (DAGs) do Airflow
 │   └── etl/
-│       ├── dags/                     # DAGs do Airflow
-│       └── src/
-│           ├── infrastructure/
-│           │   ├── data/currency_quotes/   # Extração de cotações (ARS, USD, BTC, etc.)
-│           │   ├── databases_connection/   # Conexões SQL
-│           │   ├── market_data/            # Comandos de manipulação de dados
-│           │   ├── utils/                  # Funções auxiliares
-│           │   └── worker/                 # Workers por moeda
-│           └── ...
-├── logs/                          # Logs do Airflow
-├── plugins/                       # Plugins personalizados
-└── docker-compose.yml
+│       ├── dags/                         # Arquivos de DAGs principais
+│       └── src/                          # Código-fonte do ETL
+│           ├── data/                     # Diretório principal de dados e lógica de ETL
+│           │   ├── currency_quotes/      # Extração de cotações de moedas (USD, BTC, ARS, etc.)
+│           │   ├── databases_connection/ # Gerenciamento de conexões com bancos SQL
+│           │   ├── market_data/          # Transformações e manipulação de dados
+│           │   ├── utils/                # Funções auxiliares reutilizáveis
+│           │   └── worker/               # Workers específicos por moeda ou tipo de dado
+│           ├── sql/                      # Queries SQL isoladas
+│           └── tests/                    # Testes unitários e de integração
+├── logs/                                 # Logs do Airflow
+├── plugins/                              # Plugins personalizados (operadores, sensores, hooks, etc.)
+
 ```
 
 ---
@@ -177,11 +179,5 @@ connection = ConnectionDatabaseSpark(
 
 Desenvolvido por [**João Barreto**](https://github.com/joaobarreto27) 💻  
 Projeto de estudo em Engenharia de Dados com foco em automação e orquestração de pipelines.
-
----
-
-## 📜 Licença
-
-Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ---
